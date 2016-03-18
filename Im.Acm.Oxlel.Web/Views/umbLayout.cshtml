@@ -1,0 +1,65 @@
+﻿@inherits UmbracoTemplatePage
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@Umbraco.Field(@*"title", altFieldAlias: *@"pageName") | @Umbraco.Field("siteName", recursive: true)</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+	<link href='https://fonts.googleapis.com/css?family=Lato:400,300' rel='stylesheet' type='text/css'>
+	<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link href="~/css/main.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.9.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+</head>
+<body>
+	<header>
+    @{ Html.RenderPartial("umbTopNavigation"); }
+	</header>
+		
+	<div class="page-content">	
+	@RenderBody()
+	</div>
+			
+    <!-- Footer -->
+    <footer id="footer">
+		<div class="container">
+            <div class="row">
+                <div class="col-md-4">
+					@* @{ Html.RenderPartial("umbAbout"); } *@
+					<h4>Our Address</h4>
+					<ul class="address">
+						<li>Oxford Long-Term Ecology Laboratory</li>
+						<li>Department of Zoology</li>
+						<li>The Tinbergen Building</li>
+						<li>South Parks Road</li>
+						<li>Oxford OX1 3PS</li>
+					</ul>					
+                </div>
+                <div class="col-md-4" style="padding-right:4em">
+					@* @{ Html.RenderPartial("umbSocial"); }*@
+					<h4>Contact Us</h4>
+					<ul class="contact">
+						<li>Telephone: 00441865 271 176</li>
+						<li>Fax: 00441865 271 249</li>
+						<li><a href="mailto:kathy.willis@zoo.ox.ac.uk"><span class="glyphicon glyphicon-envelope"></span> Email Professor Kathy Willis</a></li>
+					</ul>
+                </div>
+                <div class="col-md-4 footer-images">
+                    <img src="/images/oxford-logo.png" alt="University of Oxford">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <p style="text-align:center;">&copy; @DateTime.Now.Year @Umbraco.Field("copyright", recursive: true). A website brought to you by <a href="http://acm.im">Andrew C Martin</a></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- /Footer -->
+</body>
+</html>

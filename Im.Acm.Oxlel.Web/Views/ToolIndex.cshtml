@@ -1,0 +1,33 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage<ContentModels.ToolIndex>
+@using ContentModels = Umbraco.Web.PublishedContentModels;
+@{
+	Layout = "umbLayout.cshtml";
+	var tools = CurrentPage.Children.Where("Visible").OrderBy("Name");
+}
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			@{ Html.RenderPartial("breadcrumb"); }
+			<div class="page-header">
+				<h1>@Umbraco.Field("title") <small>@Umbraco.Field("subtitle")</small></h1>
+			</div>
+			@foreach (var tool in tools) {
+			var categories = tool.GetPropertyValue("category").Split(',');
+			<div class="tool-list-item">
+				<img src="@tool.GetCropUrl("image", "thumbnail")" />
+				<div class="summary">
+					<h3><a href="@tool.Url">@tool.GetPropertyValue("toolName")</a></h3>
+					<div class="tags">
+															@foreach (var item in categories)
+					{
+					<span class="tag @item.Replace(' ', '-')">@item</span>
+					}</div>
+					<p>@Umbraco.Truncate(tool.GetPropertyValue("description"), 400)</p>
+				</div>
+			</div>
+		}
+		</div>
+	</div>
+</div>
+</div>

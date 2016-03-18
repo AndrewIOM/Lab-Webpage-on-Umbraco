@@ -1,0 +1,57 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage<ContentModels.ResearchProject>
+@using ContentModels = Umbraco.Web.PublishedContentModels;
+@{
+	Layout = "umbLayout.cshtml";
+}
+			
+<div class="container">
+	@{ Html.RenderPartial("breadcrumb"); }
+	<div class="page-header">
+		<h1>@Umbraco.Field("projectTitle") <small>@Umbraco.Field("subtitle")</small>
+		</h1>
+	</div>
+		    <!-- Banner -->
+    <div id="banner-wrapper" style="background: url('@Url.GetCropUrl(Model.Content, "image", "Research Project Banner")') center center / cover;">
+    </div>
+    <!-- /Banner -->
+		<br/>
+
+	<div class="row">
+		<div class="col-md-8">
+			<h4>Description</h4>
+			<p>@Umbraco.Field("description")<p>
+		</div>
+		<div class="col-md-4">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+				<h3 class="panel-title">Project Details</h3>
+			</div>
+			<div class="panel-body">
+				<h4>Status</h4>
+				@if (Umbraco.Field("endDate").ToString() == "01/01/0001 00:00:00") 
+				{
+					<p>This project is <bold>in progress</bold>.</p>
+					<p><span class="glyphicon glyphicon-time"></span> Started @Umbraco.Field("startDate")</p>
+				} else {
+					<p>Completed: @Umbraco.Field("endDate")</p>
+					<p><span class="glyphicon glyphicon-time"></span> Ran from @Umbraco.Field("startDate") to @Umbraco.Field("endDate")</p>
+				}
+				<h4>People</h4>
+				@{
+					if (Model.Content.HasValue("people"))
+					{
+						var peopleValue = Model.Content.GetPropertyValue<string>("people");
+						var people = peopleValue.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse);
+						var peopleCollection = Umbraco.TypedContent(people).Where(x => x != null);
+						<ul class="people-list">
+						@foreach (var person in peopleCollection)
+						{
+							<li><a href="@person.Url">@person.Name</a></li>
+						}
+						</ul>
+					}
+				}
+			</div>
+		</div>
+	</div>
+</div>

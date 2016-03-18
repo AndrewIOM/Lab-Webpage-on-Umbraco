@@ -1,0 +1,72 @@
+﻿@inherits UmbracoTemplatePage
+@{
+    var pageTitle = string.IsNullOrWhiteSpace(CurrentPage.Title)
+        ? CurrentPage.Name
+        : CurrentPage.Title;
+    var homePage = CurrentPage.AncestorsOrSelf(1).First();    
+    var newsOverview = homePage.umbNewsOverviews.First();
+	
+    var newsItems = newsOverview.umbNewsItems.Where("postCategory == \"News\"").OrderBy("publishDate desc, createDate desc").Take(3);
+    var researchHighlights = newsOverview.umbNewsItems.Where("postCategory == \"Research Highlight\"").OrderBy("publishDate desc, createDate desc").Take(3);
+    var insights = newsOverview.umbNewsItems.Where("postCategory == \"News\"").OrderBy("publishDate desc, createDate desc").Take(3);
+}
+
+<!-- Main -->
+<div class="container">
+	<div class="row">
+		<div class="col-md-8">
+			<!-- Research Highlights -->
+            <article class="news-block research-highlights">
+					<h3>Research Highlights</h3>
+                        @foreach (var item in researchHighlights)
+                        {
+                            var title = string.IsNullOrWhiteSpace(item.Title) 
+                                ? item.Name 
+                                : item.Title;
+                            var dateTime = item.PublishDate == default(DateTime) 
+                                ? item.CreateDate 
+                                : item.PublishDate;
+							var imageUrl = item.GetCropUrl("image", "thumbnail");
+                            <section class="news-post">
+								<span class="timestamp"><span class="glyphicon glyphicon-time"></span> @dateTime.ToString("f")</span>
+                                <h4><a href="@item.Url">@title</a><small class="byline">@item.SubHeader</small></h4>
+
+									@if (!string.IsNullOrEmpty(imageUrl)) {
+										<a href="@item.Url"><img class="framed" src="@imageUrl" /></a>
+									}
+									@Umbraco.Truncate(item.BodyText, 600)
+
+                                <a href="@item.Url" class="button">Continue Reading</a>
+                            </section>
+                        }
+            </article>
+		</div>
+		<div class="col-md-4">
+			<article class="news-block side-block">
+							<h3>Lab News</h3>
+                        @foreach (var item in newsItems)
+                        {
+                            var title = string.IsNullOrWhiteSpace(item.Title) 
+                                ? item.Name 
+                                : item.Title;
+                            var dateTime = item.PublishDate == default(DateTime) 
+                                ? item.CreateDate 
+                                : item.PublishDate;
+							var imageUrl = item.GetCropUrl("image", "banner");
+                            <section class="news-post">
+								<span class="timestamp"><span class="glyphicon glyphicon-time"></span> @dateTime.ToString("f")</span>
+                                <h4><a href="@item.Url">@title</a><small class="byline">@item.SubHeader</small></h4>
+
+									@if (!string.IsNullOrEmpty(imageUrl)) {
+										<a href="@item.Url"><img class="framed" src="@imageUrl" /></a>
+									}
+
+                                @Umbraco.Truncate(item.BodyText, 150)
+
+                                <a href="@item.Url" class="button">Continue Reading</a>
+                            </section>
+                        }
+                </article>
+			</div>
+		</div>
+	</div>

@@ -1,0 +1,22 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage<ContentModels.PublicationsIndex>
+@using ContentModels = Umbraco.Web.PublishedContentModels;
+@{
+	Layout = "umbLayout.cshtml";
+	var publications = CurrentPage.Children();
+}
+
+<div class="container">
+	@{ Html.RenderPartial("breadcrumb"); }
+	<div class="page-header">
+		<h1>@Umbraco.Field("title") <small>@Umbraco.Field("subtitle")</small>
+		</h1>
+	</div>
+	<div class="row">
+@foreach (var publication in publications) {
+	<div class="col-md-12">
+		<h4>@publication.GetPropertyValue("title")</h4>
+		</div>
+}
+</div>
+</div>
+

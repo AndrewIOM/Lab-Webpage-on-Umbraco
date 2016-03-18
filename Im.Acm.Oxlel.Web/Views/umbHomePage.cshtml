@@ -1,0 +1,68 @@
+﻿@inherits UmbracoTemplatePage
+@{
+    Layout = "umbLayout.cshtml";
+}
+
+<!-- Header Image -->
+@{ Html.RenderPartial("umbHomepageBanner"); }
+	
+<!-- Main -->
+
+	<div class="content-section grey">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4">
+					<h2>Long-Term Ecology</h2>
+					<h4>The history of biodiversity and ecosystems</h4>
+					<p>We undertake fieldwork globally to collect environmental data, including using paleo-ecological methods. We also make use of existing spatiotemporal datasets to generate novel datasets on the distribution of biodiversity</p>
+					<p><a href="/research/long-term-ecology">Learn more about our long-term ecological research</a></p>
+				</div>
+				<div class="col-md-6 pull-right">
+					<img src="/Content/Images/longtermecology.jpg"/>
+				</div>
+			</div>
+		</div>
+	</div>	
+	<div class="content-section">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6">
+					<img src="/Content/Images/resource-stewardship.png"/>
+				</div>
+									<div class="col-md-4 pull-right">
+					<h2>Resource Stewardship Technologies</h2>
+					<h4>Tools to inform environmental descision making</h4>
+					<p>Gill and the forestry team do resource stewardship tech. This includes NaturEtrade, and the Local Ecological Footprinting Tool (LEFT).</p>
+				<p><a href="/projects/long-term-ecology">Learn more about long-term ecology</a></p>
+					</div>
+			</div>
+		</div>
+	</div>
+	<div class="content-section grey">
+		<div class="container">
+		<div class="row">
+			<div class="col-md-4">
+				<h2>Biodiversity Conservation</h2>
+				<h4>Cool subtitle</h4>
+				<p>We undertake fieldwork globally to collect environmental data, including using paleo-ecological methods. We also make use of existing spatiotemporal datasets to generate novel datasets on the distribution of biodiversity</p>
+				<p><a href="/projects/long-term-ecology">Learn more about our long-term ecological research</a></p>
+					</div>
+					<div class="col-md-6 pull-right">
+						<img src="/Content/Images/conservation.jpg"/>
+					</div>
+				</div>
+			</div>
+		</div>	
+		<div class="content-section">
+            @{ Html.RenderPartial("umbNewsOverviewWidget"); }
+		</div>
+	<div class="content-section">
+		<div class="container">
+			<div class="row">
+			@{ Html.RenderPartial("umbFeatures"); }
+    </div>
+    </div>
+		</div>
+    </div>
+</div>
+<!-- /Main -->

@@ -1,0 +1,51 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage<ContentModels.ResearchProjectCategory>
+@using ContentModels = Umbraco.Web.PublishedContentModels;
+@{
+	Layout = "umbLayout.cshtml";
+	var selection = CurrentPage.Site().Descendants("researchProject").Where("Visible").OrderBy("Name");
+}
+
+<div class="container">		
+		@* Title *@
+	@{ Html.RenderPartial("breadcrumb"); }
+			<div class="page-header">
+		<h1>@Umbraco.Field("title")</h1>
+	</div>
+
+<div class="row">		
+	<div class="col-md-6">
+					@Umbraco.Field("description")
+	</div>
+		<div class="col-md-6">
+		@* Projects *@
+@foreach (var item in selection) {
+	var cats = item.GetPropertyValue("researchCategories");
+	if (cats.Contains(Umbraco.Field("title").ToString())) {
+	var methods = item.GetPropertyValue("methods").Split(',');
+	var topics = item.GetPropertyValue("topics").Split(',');
+	
+		<div class="project-list-item">
+			<img src="@item.GetCropUrl("image", "thumbnail")" />
+			<div class="summary">
+				<h3><a href="@item.Url">@item.GetPropertyValue("projectTitle")</a></h3>
+				<p>@Umbraco.Truncate(item.GetPropertyValue("description"), 200)</p>
+												<div class="tags">
+					<span>
+					@foreach (var tag in methods) {
+						<span class="tag">@tag</span>
+					}</span>
+					<span>
+					@foreach (var tag in topics) {
+						<span class="tag">@tag</span>
+					}</span>
+				</div>
+			</div>
+		</div>
+	}
+}
+
+	</div>
+</div>
+		
+</div>
+	</div>
