@@ -53,6 +53,10 @@ footer .container {
 	padding-top:30px;
 }
 
+footer img {
+	height:8em;
+}
+
 .address, .contact {
 	list-style: none;
 	padding-left: 0;
@@ -156,7 +160,7 @@ display: inline-block;
 
 /* Home Page */
 .content-section {
-	padding:4em;
+	padding:4em 0;
 }
 
 .content-section h2 {

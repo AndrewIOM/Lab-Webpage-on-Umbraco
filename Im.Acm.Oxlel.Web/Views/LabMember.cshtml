@@ -3,7 +3,7 @@
 @{
 	Layout = "umbLayout.cshtml";
 	
-	var projects = CurrentPage.Site().Descendants("researchProject").Where("Visible").OrderBy("Name");
+	var projects = CurrentPage.Site().Descendants("researchProject").Where("Visible").OrderBy("Name").Take(5);
 	var tools = CurrentPage.Site().FirstChild("toolIndex").Children.Where("Visible");
 	var pageId = CurrentPage.Id.ToString();
 	
@@ -27,22 +27,7 @@
 	</div>
 		
 	<div class="row">
-	<div class="col-md-8">			
-		<h4>Academic Profile</h4>
-		<hr/>
-		@Umbraco.Field("researchProfile")
-		@if (!hasLeft) {
-					<h4>Current Research</h4>
-		<hr/>
-				@Umbraco.Field("currentResearch")
-		<h4>Selected Publications</h4>
-		<hr/>
-		@Umbraco.Field("publications")
-
-		}
-	</div>
-		
-	<div class="col-md-4">
+			<div class="col-md-4 col-md-push-8">
 		<img src="@Model.Content.GetCropUrl("picture", "portrait")" alt="Portrait" style="width:100%"/>
 		<ul class="related-links">
 		@if (!hasLeft && !string.IsNullOrEmpty(Umbraco.Field("emailAddress").ToString())) {
@@ -68,21 +53,6 @@
 			@if (!hasLeft){
 		<div class="panel panel-primary">
 			<div class="panel-heading">
-			<h3 class="panel-title">Active Research</h3>
-			</div>
-			<div class="panel-body">
-				@foreach (var project in projects) {
-					var peopleValue = project.GetPropertyValue<string>("people");
-					if (peopleValue.Contains(pageId)) {
-											<p>
-							<a href="@project.Url">@project.GetPropertyValue("projectTitle")</a>
-						</p>
-					}
-					}
-			</div>
-		</div>
-		<div class="panel panel-primary">
-			<div class="panel-heading">
 				<h3 class="panel-title">Tools and Resources</h3>
 			</div>
 			<div class="panel-body">
@@ -99,4 +69,43 @@
 		</div>
 			}
 	</div>
+	<div class="col-md-8 col-md-pull-4">			
+		<h4>Academic Profile</h4>
+		<hr/>
+		@Umbraco.Field("researchProfile")
+		@if (!hasLeft) {
+			<br/>
+					<h4>Current Research</h4>
+		<hr/>
+		@Umbraco.Field("currentResearch")
+				@* Projects *@
+foreach (var item in projects) {
+	var methods = item.GetPropertyValue("methods").Split(',');
+	var topics = item.GetPropertyValue("topics").Split(',');
+	
+		<div class="project-list-item">
+			<img src="@item.GetCropUrl("image", "thumbnail")" />
+			<div class="summary">
+				<h3><a href="@item.Url">@item.GetPropertyValue("projectTitle")</a></h3>
+				<p>@Umbraco.Truncate(item.GetPropertyValue("description"), 200)</p>
+												<div class="tags">
+					<span>
+					@foreach (var tag in methods) {
+						<span class="tag">@tag</span>
+					}</span>
+					<span>
+					@foreach (var tag in topics) {
+						<span class="tag">@tag</span>
+					}</span>
 				</div>
+			</div>
+		</div>
+}
+		<br/>
+		<h4>Selected Publications</h4>
+		<hr/>
+		@Umbraco.Field("publications")
+
+		}
+	</div>
+</div>

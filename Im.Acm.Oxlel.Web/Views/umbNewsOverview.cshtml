@@ -6,7 +6,7 @@
         ? CurrentPage.Name
         : CurrentPage.Title;
     var homePage = CurrentPage.AncestorsOrSelf(1).First();    
-    var newsItems = CurrentPage.Children.OrderBy("publishDate desc, createDate desc");
+    var newsItems = CurrentPage.Children.OrderBy("publishDate desc");
 }
 
 <!-- Main -->

@@ -2,7 +2,7 @@
 @using ContentModels = Umbraco.Web.PublishedContentModels;
 @{
 	Layout = "umbLayout.cshtml";
-	var selection = CurrentPage.Descendants("researchProject").Where("Visible").OrderBy("Name");
+	var selection = CurrentPage.Descendants("researchProject").Where("Visible && endDate.Year == 1").OrderBy("Name");
 	var categories = CurrentPage.Descendants("researchProjectCategory")
 		.Where("Visible").OrderBy("Name");
 }

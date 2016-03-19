@@ -338,6 +338,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Images\conservation.jpg" />
     <Content Include="Content\Images\longtermecology.jpg" />
+    <Content Include="Content\Images\oxford-logo.png" />
     <Content Include="Content\Images\oxlellogo.png" />
     <Content Include="Content\Images\resource-stewardship.png" />
     <Content Include="Content\Images\topbanner.jpg" />
@@ -354,6 +355,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
+    <None Include="Properties\PublishProfiles\oxlel - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -505,6 +507,7 @@
     <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.1.0.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\" />
     <Folder Include="Views\MacroPartials\" />
   </ItemGroup>
   <PropertyGroup>
