@@ -9,10 +9,11 @@
 	
 	var endDate = CurrentPage.GetPropertyValue<DateTime>("endDate");
 	var startDate = CurrentPage.GetPropertyValue<DateTime>("startDate");
+	bool hasLeft = endDate != new DateTime();
+	if (endDate.Year == 1) { endDate = DateTime.Now;}
 	var month = (endDate.Month - startDate.Month) + 12 * (endDate.Year - startDate.Year);
 	var years = Math.Floor((double)month / (double)12);
 	var months = month % 12;
-	bool hasLeft = endDate != new DateTime();
 }
 
 <div class="container">
@@ -80,8 +81,10 @@
 		@Umbraco.Field("currentResearch")
 				@* Projects *@
 foreach (var item in projects) {
-	var methods = item.GetPropertyValue("methods").Split(',');
-	var topics = item.GetPropertyValue("topics").Split(',');
+	var peopleValue = item.GetPropertyValue<string>("people");
+	if (peopleValue.Contains(pageId)) {
+		var methods = item.GetPropertyValue("methods").Split(',');
+		var topics = item.GetPropertyValue("topics").Split(',');
 	
 		<div class="project-list-item">
 			<img src="@item.GetCropUrl("image", "thumbnail")" />
@@ -106,6 +109,7 @@ foreach (var item in projects) {
 		<hr/>
 		@Umbraco.Field("publications")
 
+}
 		}
 	</div>
 </div>

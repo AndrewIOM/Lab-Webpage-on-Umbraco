@@ -479,6 +479,10 @@
     <Content Include="Views\umbNewsItem.cshtml" />
     <Content Include="Views\umbNewsOverview.cshtml" />
     <Content Include="Views\umbTextPage.cshtml" />
+    <Content Include="uSync\data\DataType\home-feature-image\HomeFeatureImage.config" />
+    <Content Include="uSync\data\DataType\homepage-highlights\HomepageHighlights.config" />
+    <Content Include="uSync\data\DataType\research-methods-tags\ResearchMethodsTags.config" />
+    <Content Include="uSync\data\DataType\topics-tags\TopicsTags.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
