@@ -3,3 +3,10 @@
 @{
 	Layout = "umbLayout.cshtml";
 }
+
+<div class="container">
+	@{ Html.RenderPartial("breadcrumb"); }
+	<div class="page-header">
+		<h1>@Umbraco.Field("title") <small>@Umbraco.Field("subtitle")</small>
+		</h1>
+	</div>

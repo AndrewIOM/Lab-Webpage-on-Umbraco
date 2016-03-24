@@ -1,57 +1,129 @@
 ﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage<ContentModels.ResearchProject>
 @using ContentModels = Umbraco.Web.PublishedContentModels;
 @{
-	Layout = "umbLayout.cshtml";
+    Layout = "umbLayout.cshtml";
+    var methods = CurrentPage.GetPropertyValue("methods").Split(',');
+    var topics = CurrentPage.GetPropertyValue("topics").Split(',');
+
+    var startDate = CurrentPage.GetPropertyValue<DateTime>("startDate");
+    var endDate = CurrentPage.GetPropertyValue<DateTime>("endDate");
+    bool completed = true;
+    if (endDate.Year == 1)
+    {
+        completed = false;
+        endDate = DateTime.Now;
+    };
+    var month = (endDate.Month - startDate.Month) + (12 * (endDate.Year - startDate.Year));
+    var years = Math.Floor((double)month / (double)12);
+    var months = month % 12;
+
+
+
 }
-			
 <div class="container">
-	@{ Html.RenderPartial("breadcrumb"); }
-	<div class="page-header">
-		<h1>@Umbraco.Field("projectTitle") <small>@Umbraco.Field("subtitle")</small>
-		</h1>
-	</div>
-		    <!-- Banner -->
+    @{ Html.RenderPartial("breadcrumb"); }
+    <div class="page-header">
+        <h1>
+            @Umbraco.Field("projectTitle") <small>@Umbraco.Field("subtitle")</small>
+        </h1>
+    </div>
+    <!-- Banner -->
     <div id="banner-wrapper" style="background: url('@Url.GetCropUrl(Model.Content, "image", "Research Project Banner")') center center / cover;">
     </div>
     <!-- /Banner -->
-		<br/>
-
-	<div class="row">
-		<div class="col-md-8">
-			<h4>Description</h4>
-			<p>@Umbraco.Field("description")<p>
-		</div>
-		<div class="col-md-4">
-			<div class="panel panel-primary">
-				<div class="panel-heading">
-				<h3 class="panel-title">Project Details</h3>
-			</div>
-			<div class="panel-body">
-				<h4>Status</h4>
-				@if (Umbraco.Field("endDate").ToString() == "01/01/0001 00:00:00") 
-				{
-					<p>This project is <bold>in progress</bold>.</p>
-					<p><span class="glyphicon glyphicon-time"></span> Started @Umbraco.Field("startDate")</p>
-				} else {
-					<p>Completed: @Umbraco.Field("endDate")</p>
-					<p><span class="glyphicon glyphicon-time"></span> Ran from @Umbraco.Field("startDate") to @Umbraco.Field("endDate")</p>
-				}
-				<h4>People</h4>
-				@{
-					if (Model.Content.HasValue("people"))
-					{
-						var peopleValue = Model.Content.GetPropertyValue<string>("people");
-						var people = peopleValue.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse);
-						var peopleCollection = Umbraco.TypedContent(people).Where(x => x != null);
-						<ul class="people-list">
-						@foreach (var person in peopleCollection)
-						{
-							<li><a href="@person.Url">@person.Name</a></li>
-						}
-						</ul>
-					}
-				}
-			</div>
-		</div>
-	</div>
-</div>
+    <br />
+    <div class="row">
+        <div class="col-md-8">
+            <h4>Description</h4>
+            <p>@Umbraco.Field("description")<p>
+        </div>
+        <div class="col-md-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Project Details</h3>
+                </div>
+                <div class="panel-body">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                    @if (completed)
+                    {
+                        <span>This project ran for </span>
+                    }
+                    else
+                    {
+                        <span>This project has been running for </span>
+                    }
+                    @if (years == 1)
+            {
+                        <span>@years year</span>
+                    }
+                    else if (years > 1)
+                    {
+                        <span>@years years</span>
+                    }
+                    @if (years > 0 && months > 0)
+                    {
+                        <span> and </span>
+                    }
+                    @if (months == 1)
+            {
+                        <span>@months month.</span>
+                    }
+                    else if (months > 1)
+                    {
+                        <span>@months months.</span>
+                    }
+                    else
+                    {
+                        <span>.</span>
+                    }
+                    <p>
+                        <span>It was started during @startDate.Month/@startDate.Year. </span>
+                        @if (completed)
+                        {
+                            <span>It was completed during @endDate.Month/@endDate.Year</span>
+                        }
+                    </p>
+                    <hr />
+                    <h6>People</h6>
+                    @{
+                        if (Model.Content.HasValue("people"))
+                        {
+                            var peopleValue = Model.Content.GetPropertyValue<string>("people");
+                            var people = peopleValue.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse);
+                            var peopleCollection = Umbraco.TypedContent(people).Where(x => x != null);
+                            <ul class="people-list">
+                                @foreach (var person in peopleCollection)
+                                {
+                                    <li>
+                                        <a href="@person.Url">
+                                            <img src="@person.GetCropUrl("picture", "thumbnail")" />
+                                            @person.Name
+                                        </a>
+                                    </li>
+                                }
+                            </ul>
+                        }
+                    }
+                    <hr />
+                    <div class="tags">
+                        <h6>Key Methods: </h6>
+                        <span>
+                            @foreach (var tag in methods)
+                            {
+                                <span class="tag">@tag</span>
+                            }
+                        </span>
+                    </div>
+                    <div class="tags">
+                        <h6>Key Topics:     </h6>
+                        <span>
+                            @foreach (var tag in topics)
+                            {
+                                <span class="tag">@tag</span>
+                            }
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

@@ -2,21 +2,29 @@
 @using ContentModels = Umbraco.Web.PublishedContentModels;
 @{
 	Layout = "umbLayout.cshtml";
-	var publications = CurrentPage.Children();
+	var publications = CurrentPage.Children().OrderBy("year");
 }
 
 <div class="container">
 	@{ Html.RenderPartial("breadcrumb"); }
 	<div class="page-header">
-		<h1>@Umbraco.Field("title") <small>@Umbraco.Field("subtitle")</small>
-		</h1>
+		<h1>Publications</h1>
 	</div>
 	<div class="row">
+		<div class="col-md-12">
 @foreach (var publication in publications) {
-	<div class="col-md-12">
-		<h4>@publication.GetPropertyValue("fullAPACitation")</h4>
+		var uploadedFile = publication.GetPropertyValue("downloadableDocument");
+		<div class="publication">
+			@if (!string.IsNullOrEmpty(uploadedFile)) {
+				<h4><a href="@uploadedFile" target="_blank">@publication.GetPropertyValue("title") (@publication.GetPropertyValue("year").Year)</a></h4>
+			} else {
+				<h4>@publication.GetPropertyValue("title") (@publication.GetPropertyValue("year").Year)</h4>
+			}
+			<span>@publication.GetPropertyValue("authors") | </span>
+			<span>DOI: <a href="http://dx.doi.org/@publication.GetPropertyValue("doi")" target="_blank">@publication.GetPropertyValue("doi")</a></span>
 		</div>
 }
-</div>
+		</div>
+	</div>
 </div>
 
