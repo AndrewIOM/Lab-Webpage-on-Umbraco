@@ -5,43 +5,40 @@
     var pageTitle = string.IsNullOrWhiteSpace(CurrentPage.Title)
         ? CurrentPage.Name
         : CurrentPage.Title;
-    var homePage = CurrentPage.AncestorsOrSelf(1).First();    
+    var homePage = CurrentPage.AncestorsOrSelf(1).First();
     var newsItems = CurrentPage.Children.OrderBy("publishDate desc");
 }
-
 <!-- Main -->
 <div class="container">
-	@{ Html.RenderPartial("breadcrumb"); }
-	<div class="page-header">
-		<h1>News</h1>
-	</div>
-		
-	<div class="row">
-		<div class="col-md-8">
-			@foreach (var item in newsItems) {
-				var title = string.IsNullOrWhiteSpace(item.Title) 
-					? item.Name 
-					: item.Title;
-				var dateTime = item.PublishDate == default(DateTime) 
-					? item.CreateDate 
-					: item.PublishDate;
-				var imageUrl = item.GetCropUrl("image", "thumbnail");
-				<section class="news-post">
-					<span class="timestamp"><span class="glyphicon glyphicon-time"></span> @dateTime.ToString("f")</span>
-						<h3><a href="@item.Url">@title</a><small class="byline">@item.SubHeader</small></h3>
+    @{ Html.RenderPartial("breadcrumb"); }
+    <div class="page-header">
+        <h1>News</h1>
+    </div>
 
-							@if (!string.IsNullOrEmpty(imageUrl)) {
-								<a href="@item.Url"><img class="framed" src="@imageUrl" /></a>
-									}
-
-				@Umbraco.Truncate(item.BodyText, 600)
-
-					<a href="@item.Url" class="button">Continue Reading</a>
-						</section>
-					}
-</div>
-		<div class="col-md-4">
-			@{ Html.RenderPartial("Twitter"); }
-		</div>
-	</div>	
+    <div class="row">
+        <div class="col-md-8">
+            @foreach (var item in newsItems)
+            {
+                var title = string.IsNullOrWhiteSpace(item.Title)
+                    ? item.Name
+                    : item.Title;
+                var dateTime = item.PublishDate == default(DateTime)
+                    ? item.CreateDate
+                    : item.PublishDate;
+                var imageUrl = item.GetCropUrl("image", "thumbnail");
+                <section class="news-post">
+                    <span><span class="glyphicon glyphicon-calendar"></span> @dateTime.ToString("D")</span>
+                    <h3><a href="@item.Url">@title</a><small class="byline">@item.SubHeader</small></h3>
+                    @if (!string.IsNullOrEmpty(imageUrl))
+                    {
+                        <a href="@item.Url"><img class="framed" src="@imageUrl" /></a>
+                    }
+                    <p>@library.StripHtml(Umbraco.Truncate(item.BodyText, 600, false).ToString())<a href="@item.Url" class="button">...   Continue Reading</a></p>
+                </section>
+            }
+        </div>
+        <div class="col-md-4">
+            @{ Html.RenderPartial("Twitter"); }
+        </div>
+    </div>
 </div>

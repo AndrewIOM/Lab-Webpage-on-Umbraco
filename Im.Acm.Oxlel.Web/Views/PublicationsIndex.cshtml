@@ -1,30 +1,93 @@
 ﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage<ContentModels.PublicationsIndex>
 @using ContentModels = Umbraco.Web.PublishedContentModels;
 @{
-	Layout = "umbLayout.cshtml";
-	var publications = CurrentPage.Children().OrderBy("year");
-}
+    Layout = "umbLayout.cshtml";
+    var allTags = Umbraco.TagQuery.GetAllTags("publication").OrderByDescending(m => m.NodeCount);
+    var currentTag = Context.Request.QueryString["tag"];
 
+    var publications = CurrentPage.Children().OrderBy("year desc");
+
+}
 <div class="container">
-	@{ Html.RenderPartial("breadcrumb"); }
-	<div class="page-header">
-		<h1>Publications</h1>
-	</div>
-	<div class="row">
-		<div class="col-md-12">
-@foreach (var publication in publications) {
-		var uploadedFile = publication.GetPropertyValue("downloadableDocument");
-		<div class="publication">
-			@if (!string.IsNullOrEmpty(uploadedFile)) {
-				<h4><a href="@uploadedFile" target="_blank">@publication.GetPropertyValue("title") (@publication.GetPropertyValue("year").Year)</a></h4>
-			} else {
-				<h4>@publication.GetPropertyValue("title") (@publication.GetPropertyValue("year").Year)</h4>
-			}
-			<span>@publication.GetPropertyValue("authors") | </span>
-			<span>DOI: <a href="http://dx.doi.org/@publication.GetPropertyValue("doi")" target="_blank">@publication.GetPropertyValue("doi")</a></span>
-		</div>
-}
-		</div>
-	</div>
+    @{ Html.RenderPartial("breadcrumb"); }
+    <div class="page-header">
+        <h1>Publications</h1>
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+            @if (string.IsNullOrEmpty(currentTag))
+            {
+                <p>Showing <strong>all</strong> @publications.Count() publications, ordered by date of publication.</p>
+            }
+            else
+            {
+                <p>Showing publications tagged <span class="tag">@currentTag</span> <a href="@CurrentPage.Url"><span class="glyphicon glyphicon-remove"></span> Clear</a></p>
+                <hr />
+            }
+            @foreach (var publication in publications)
+            {
+                var tagString = publication.GetPropertyValue<string>("tags");
+                string[] tags = string.IsNullOrEmpty(tagString) ? new string[0] : tagString.Split(',');
+                var uploadedFile = publication.GetPropertyValue("downloadableDocument");
+                if (!string.IsNullOrEmpty(currentTag))
+                {
+                    if (tags.Contains(currentTag))
+                    {
+                        <div class="publication">
+                            @if (!string.IsNullOrEmpty(uploadedFile))
+                            {
+                                <h4><a href="@uploadedFile" target="_blank">@publication.GetPropertyValue("title") (@publication.GetPropertyValue("year").Year)</a></h4>
+                            }
+                            else
+                            {
+                                <h4>@publication.GetPropertyValue("title") (@publication.GetPropertyValue("year").Year)</h4>
+                            }
+                            <span style="text-transform:capitalize;">@publication.GetPropertyValue("authors") | </span>
+                            <span>DOI: <a href="http://dx.doi.org/@publication.GetPropertyValue("doi")" target="_blank">@publication.GetPropertyValue("doi")</a></span>
+                            <div class="tags">
+                                <span>
+                                    @foreach (var tag in tags)
+                                    {
+                                        <a href="@CurrentPage.Url?tag=@tag"><span class="tag">@tag</span></a>
+                                    }
+                                </span>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="publication">
+                        @if (!string.IsNullOrEmpty(uploadedFile))
+                    {
+                            <h4><a href="@uploadedFile" target="_blank">@publication.GetPropertyValue("title") (@publication.GetPropertyValue("year").Year)</a></h4>
+                        }
+                        else
+                        {
+                            <h4>@publication.GetPropertyValue("title") (@publication.GetPropertyValue("year").Year)</h4>
+                        }
+                        <span style="text-transform:capitalize;">@publication.GetPropertyValue("authors") | </span>
+                        <span>DOI: <a href="http://dx.doi.org/@publication.GetPropertyValue("doi")" target="_blank">@publication.GetPropertyValue("doi")</a></span>
+                        <div class="tags">
+                            <span>
+                                @foreach (var tag in tags)
+                                {
+                                    <a href="@CurrentPage.Url?tag=@tag"><span class="tag">@tag</span></a>
+                                }
+                            </span>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+        <div class="col-md-4">
+            <section class="side-block">
+                <h4><span class="glyphicon glyphicon-tags"></span> Filter by Tags</h4>
+                @foreach (var tag in allTags)
+                {
+                    <a href="@CurrentPage.Url?tag=@tag.Text"><span class="tag">@tag.Text (@tag.NodeCount)</span></a>
+                }
+            </section>
+        </div>
+    </div>
 </div>
-

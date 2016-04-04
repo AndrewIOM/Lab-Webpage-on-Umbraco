@@ -337,7 +337,6 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Images\conservation.jpg" />
-    <Content Include="Content\Images\jumboimage.jpg" />
     <Content Include="Content\Images\longtermecology.jpg" />
     <Content Include="Content\Images\oxford-logo.png" />
     <Content Include="Content\Images\oxlellogo.png" />
@@ -348,7 +347,9 @@
     <Content Include="default.aspx" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="App_Plugins\ModelsBuilder\package.manifest" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -407,44 +408,85 @@
     <Content Include="uSync\data\DataType\news-item-post-category-dropdown-list\NewsItemPostCategoryDropdownList.config" />
     <Content Include="uSync\data\DataType\numeric\Numeric.config" />
     <Content Include="uSync\data\DataType\publication-lab-based-authors-content-picker\PublicationLabBasedAuthorsContentPicker.config" />
+    <Content Include="uSync\data\DataType\publication-lab-based-authors-multinode-treepicker\PublicationLabBasedAuthorsMultinodeTreepicker.config" />
+    <Content Include="uSync\data\DataType\publication-tags\PublicationTags.config" />
     <Content Include="uSync\data\DataType\publication-type-dropdown-list\PublicationTypeDropdownList.config" />
     <Content Include="uSync\data\DataType\radiobox\Radiobox.config" />
     <Content Include="uSync\data\DataType\related-links\RelatedLinks.config" />
     <Content Include="uSync\data\DataType\research-categories-dropdown-list\ResearchCategoriesDropdownList.config" />
+    <Content Include="uSync\data\DataType\research-methods-tags\ResearchMethodsTags.config" />
     <Content Include="uSync\data\DataType\research-project-image-image-cropper\ResearchProjectImageImageCropper.config" />
     <Content Include="uSync\data\DataType\research-project-people-multinode-treepicker\ResearchProjectPeopleMultinodeTreepicker.config" />
     <Content Include="uSync\data\DataType\research-project-research-categories-checkbox-list\ResearchProjectResearchCategoriesCheckboxList.config" />
     <Content Include="uSync\data\DataType\richtext-editor\RichtextEditor.config" />
     <Content Include="uSync\data\DataType\tags\Tags.config" />
     <Content Include="uSync\data\DataType\text-page-body-grid-layout\TextPageBodyGridLayout.config" />
+    <Content Include="uSync\data\DataType\text-page-content-grid-layout\TextPageContentGridLayout.config" />
     <Content Include="uSync\data\DataType\textarea\Textarea.config" />
     <Content Include="uSync\data\DataType\textstring\Textstring.config" />
     <Content Include="uSync\data\DataType\tool-main-content-grid-layout\ToolMainContentGridLayout.config" />
+    <Content Include="uSync\data\DataType\topics-tags\TopicsTags.config" />
     <Content Include="uSync\data\DataType\true-false\Truefalse.config" />
     <Content Include="uSync\data\DataType\upload\Upload.config" />
-    <Content Include="uSync\data\DocumentType\featurable\def.config" />
-    <Content Include="uSync\data\DocumentType\lab-member\def.config" />
+    <Content Include="uSync\data\DocumentType\featurable\def.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="uSync\data\DocumentType\lab-member\def.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="uSync\data\DocumentType\master\def.config" />
-    <Content Include="uSync\data\DocumentType\master\home\def.config" />
-    <Content Include="uSync\data\DocumentType\master\news-index\def.config" />
+    <Content Include="uSync\data\DocumentType\master\home\def.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="uSync\data\DocumentType\master\news-index\def.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="uSync\data\DocumentType\master\news-item\def.config" />
-    <Content Include="uSync\data\DocumentType\master\publications-index\def.config" />
-    <Content Include="uSync\data\DocumentType\master\research-project-category\def.config" />
-    <Content Include="uSync\data\DocumentType\master\research-projects-index\def.config" />
-    <Content Include="uSync\data\DocumentType\master\researchers-index\def.config" />
-    <Content Include="uSync\data\DocumentType\master\text-page\def.config" />
-    <Content Include="uSync\data\DocumentType\master\tool-index\def.config" />
-    <Content Include="uSync\data\DocumentType\publication\def.config" />
-    <Content Include="uSync\data\DocumentType\research-project\def.config" />
-    <Content Include="uSync\data\DocumentType\tool\def.config" />
-    <Content Include="uSync\data\Languages\enUS.config" />
+    <Content Include="uSync\data\DocumentType\master\publications-index\def.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="uSync\data\DocumentType\master\research-project-category\def.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="uSync\data\DocumentType\master\research-projects-index\def.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="uSync\data\DocumentType\master\researchers-index\def.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="uSync\data\DocumentType\master\text-page\def.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="uSync\data\DocumentType\master\tool-index\def.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="uSync\data\DocumentType\publication\def.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="uSync\data\DocumentType\research-project\def.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="uSync\data\DocumentType\tool\def.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="uSync\data\Languages\enUS.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="uSync\data\MediaType\file\def.config" />
-    <Content Include="uSync\data\MediaType\folder\def.config" />
+    <Content Include="uSync\data\MediaType\folder\def.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="uSync\data\MediaType\image\def.config" />
-    <Content Include="uSync\data\Template\featurable\Featurable.config" />
-    <Content Include="uSync\data\Template\umblayout\labmember\LabMember.config" />
+    <Content Include="uSync\data\Template\featurable\Featurable.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="uSync\data\Template\umblayout\labmember\LabMember.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="uSync\data\Template\umblayout\publicationsindex\PublicationsIndex.config" />
-    <Content Include="uSync\data\Template\umblayout\publication\Publication.config" />
+    <Content Include="uSync\data\Template\umblayout\publication\Publication.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="uSync\data\Template\umblayout\researchers\Researchers.config" />
     <Content Include="uSync\data\Template\umblayout\researchprojectcategory\ResearchProjectCategory.config" />
     <Content Include="uSync\data\Template\umblayout\researchproject\ResearchProject.config" />
@@ -480,15 +522,18 @@
     <Content Include="Views\umbNewsItem.cshtml" />
     <Content Include="Views\umbNewsOverview.cshtml" />
     <Content Include="Views\umbTextPage.cshtml" />
+    <Content Include="Views\Partials\projectPreview.cshtml" />
+    <Content Include="uSync\data\DataType\list-view-publicationsindex\ListViewPublicationsIndex.config" />
+    <Content Include="uSync\data\DataType\list-view-researchers\ListViewResearchers.config" />
+    <Content Include="uSync\data\DataType\list-view-research\ListViewResearch.config" />
     <Content Include="uSync\data\DataType\home-feature-image\HomeFeatureImage.config" />
     <Content Include="uSync\data\DataType\homepage-highlights\HomepageHighlights.config" />
-    <Content Include="uSync\data\DataType\research-methods-tags\ResearchMethodsTags.config" />
-    <Content Include="uSync\data\DataType\topics-tags\TopicsTags.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -501,8 +546,12 @@
     <Content Include="Views\Partials\Grid\Editors\Rte.cshtml" />
     <Content Include="Views\Partials\Grid\Editors\Textstring.cshtml" />
     <Content Include="Views\umbLayout.cshtml" />
-    <Content Include="Views\Web.config" />
-    <Content Include="Web.config" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -512,7 +561,6 @@
     <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.1.0.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Views\MacroPartials\" />
   </ItemGroup>
   <PropertyGroup>

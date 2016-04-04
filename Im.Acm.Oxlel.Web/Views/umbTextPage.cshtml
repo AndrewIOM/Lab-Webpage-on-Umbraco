@@ -3,24 +3,22 @@
     Layout = "umbLayout.cshtml";
     var pageTitle = string.IsNullOrWhiteSpace(CurrentPage.Title)
         ? CurrentPage.Name
-        : CurrentPage.Title;    
+        : CurrentPage.Title;
 }
-
 <div class="container">
-	@{ Html.RenderPartial("breadcrumb"); }
-	<div class="page-header">
-		<h1>@pageTitle</h1>
-	</div>
-	<div class="row">
-		<div class="col-md-12">
-			                            @if (string.IsNullOrWhiteSpace(CurrentPage.Image) == false)
-                            {
-                                <span class="image image-full"><img src="@CurrentPage.Image" alt="" /></span>
-                            }
+    @{ Html.RenderPartial("breadcrumb"); }
+    <div class="page-header">
+        <h1>@pageTitle</h1>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            @if (string.IsNullOrWhiteSpace(CurrentPage.Image) == false)
+            {
+                <span class="image image-full"><img src="@CurrentPage.Image" alt="" /></span>
+            }
+            @CurrentPage.GetGridHtml("bodyText")
+        </div>
+    </div>
+    @{ Html.RenderPartial("umbFeatures"); }
 
-                            @CurrentPage.BodyText
-		</div>
-	</div>
-		        @{ Html.RenderPartial("umbFeatures"); }
-						
 </div>

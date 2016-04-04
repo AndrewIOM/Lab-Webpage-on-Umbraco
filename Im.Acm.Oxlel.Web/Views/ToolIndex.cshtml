@@ -16,9 +16,11 @@
                 var categories = tool.GetPropertyValue("category").Split(',');
                 var methods = tool.GetPropertyValue("methods");
                 var topics = tool.GetPropertyValue("topics");
-				var splitMethods = string.IsNullOrEmpty(methods) ? null : methods.Split(',');
-				var splitTopics = string.IsNullOrEmpty(topics) ? null : topics.Split(',');
-								
+                var splitMethods = string.IsNullOrEmpty(methods) ? null : methods.Split(',');
+                var splitTopics = string.IsNullOrEmpty(topics) ? null : topics.Split(',');
+
+
+
                 <div class="project-list-item big">
                     <img src="@tool.GetCropUrl("image", "thumbnail")" />
                     <div class="summary">
@@ -29,14 +31,18 @@
                             {
                                 <span class="tag @item.Replace(' ', '-')">@item</span>
                             }
-							@if (splitMethods != null) {
-                                foreach (var method in splitMethods) {
-                                	<span class="tag">@method</span>
+                            @if (splitMethods != null)
+                            {
+                                foreach (var method in splitMethods)
+                                {
+                                    <span class="tag">@method</span>
                                 }
                             }
-							@if (splitTopics != null) {
-                                foreach (var tag in splitTopics) {
-                                	<span class="tag">@tag</span>
+                            @if (splitTopics != null)
+                            {
+                                foreach (var tag in splitTopics)
+                                {
+                                    <span class="tag">@tag</span>
                                 }
                             }
                         </div>
@@ -47,3 +53,4 @@
     </div>
 </div>
 </div>
+

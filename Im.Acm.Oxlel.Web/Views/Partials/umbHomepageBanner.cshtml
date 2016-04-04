@@ -1,21 +1,10 @@
 ﻿@inherits UmbracoTemplatePage
-
-@if (CurrentPage.HideBanner == false)
-{
-	var link = CurrentPage.BannerLink.ToString();
-	
-    <!-- Banner -->
-    <div id="banner-wrapper" style="background: url('/Content/Images/jumboimage.jpg') center center / cover;">
-        <div class="container">
-		<section id="banner">
-		<h3>@Umbraco.Field("bannerTextLine1")</h3><br/><h3>@Umbraco.Field("bannerTextLine2")</h3>
-		    <!-- Only show the banner link if the link isn't empty -->
-			@if(link != "")
-			{
-            	<a href="@Umbraco.Content(link).Url" class="button">@Umbraco.Field("bannerLinkText")</a>
-            }
+<!-- Banner -->
+<div id="banner-wrapper" style="background: url('/Content/Images/jumboimage.jpg') center center / cover;">
+    <div class="container">
+        <section id="banner">
+            <h3>@Umbraco.Field("bannerTextLine1")</h3><br /><h3>@Umbraco.Field("bannerTextLine2")</h3>
         </section>
-			</div>
     </div>
-    <!-- /Banner -->
-}
+</div>
+<!-- /Banner -->

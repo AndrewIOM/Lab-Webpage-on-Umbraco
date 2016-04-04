@@ -77,10 +77,10 @@
                         <span>.</span>
                     }
                     <p>
-                        <span>It was started during @startDate.Month/@startDate.Year. </span>
+                        <span>It was started @startDate.ToString("D"). </span>
                         @if (completed)
                         {
-                            <span>It was completed during @endDate.Month/@endDate.Year</span>
+                            <span>It was completed @endDate.ToString("D").</span>
                         }
                     </p>
                     <hr />

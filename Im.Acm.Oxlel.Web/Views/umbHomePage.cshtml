@@ -5,73 +5,73 @@
 
 <!-- Header Image -->
 @{ Html.RenderPartial("umbHomepageBanner"); }
-	
+
 <!-- Main -->
 
-	<div class="content-section grey">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-4">
-					@{
-						var node = Umbraco.TypedContent(Model.Content.GetPropertyValue<int>("highlightOneLink"));
-						<h2><a href="@node.Url">@Umbraco.Field("highlightOneTitle")</a></h2>
-						<h4>@Umbraco.Field("highlightOneSubtitle")</h4>
-						<p>@Umbraco.Field("highlightOneDescription")</p>
-						<p><a href="@node.Url">Learn more about our current research</a></p>
-					}
-				</div>
-				<div class="col-md-6 pull-right">
-					<img src="@Model.Content.GetCropUrl("highlightOneImage", "highlight")"/>
-				</div>
-			</div>
-		</div>
-	</div>	
-	<div class="content-section">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-4 pull-right">
-					@{
-						var node2 = Umbraco.TypedContent(Model.Content.GetPropertyValue<int>("highlightTwoLink"));
-						<h2><a href="@node2.Url">@Umbraco.Field("highlightTwoTitle")</a></h2>
-						<h4>@Umbraco.Field("highlightTwoSubtitle")</h4>
-						<p>@Umbraco.Field("highlightTwoDescription")</p>
-						<p><a href="@node2.Url">Learn more about our current research</a></p>
-					}
-				</div>
-				<div class="col-md-6">
-					<img src="@Model.Content.GetCropUrl("highlightTwoImage", "highlight")"/>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="content-section grey">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-4">
-					@{
-						var node3 = Umbraco.TypedContent(Model.Content.GetPropertyValue<int>("highlightThreeLink"));
-						<h2><a href="@node3.Url">@Umbraco.Field("highlightThreeTitle")</a></h2>
-						<h4>@Umbraco.Field("highlightThreeSubtitle")</h4>
-						<p>@Umbraco.Field("highlightThreeDescription")</p>
-						<p><a href="@node3.Url">Learn more about our current research</a></p>
-					}
-				</div>
-				<div class="col-md-6 pull-right">
-					<img src="@Model.Content.GetCropUrl("highlightThreeImage", "highlight")"/>
-				</div>
-			</div>
-		</div>
-	</div>	
-	<div class="content-section">
-           @{ Html.RenderPartial("umbNewsOverviewWidget"); }
-	</div>
-	<div class="content-section">
-		<div class="container">
-			<div class="row">
-			@{ Html.RenderPartial("umbFeatures"); }
+<div class="content-section grey">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                @{
+                    var node = Umbraco.TypedContent(Model.Content.GetPropertyValue<int>("highlightOneLink"));
+                    <h2><a href="@node.Url">@Umbraco.Field("highlightOneTitle")</a></h2>
+                        <h4>@Umbraco.Field("highlightOneSubtitle")</h4>
+                        <p>@Umbraco.Field("highlightOneDescription")</p>
+                        <p><a href="@node.Url">Learn more about our current research</a></p>
+                }
+            </div>
+            <div class="col-md-6 pull-right">
+                <img src="@Model.Content.GetCropUrl("highlightOneImage", "highlight")" />
+            </div>
+        </div>
     </div>
+</div>
+<div class="content-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 pull-right">
+                @{
+                    var node2 = Umbraco.TypedContent(Model.Content.GetPropertyValue<int>("highlightTwoLink"));
+                    <h2><a href="@node2.Url">@Umbraco.Field("highlightTwoTitle")</a></h2>
+                        <h4>@Umbraco.Field("highlightTwoSubtitle")</h4>
+                        <p>@Umbraco.Field("highlightTwoDescription")</p>
+                        <p><a href="@node2.Url">Learn more about our current research</a></p>
+                }
+            </div>
+            <div class="col-md-6">
+                <img src="@Model.Content.GetCropUrl("highlightTwoImage", "highlight")" />
+            </div>
+        </div>
     </div>
-		</div>
+</div>
+<div class="content-section grey">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                @{
+                    var node3 = Umbraco.TypedContent(Model.Content.GetPropertyValue<int>("highlightThreeLink"));
+                    <h2><a href="@node3.Url">@Umbraco.Field("highlightThreeTitle")</a></h2>
+                        <h4>@Umbraco.Field("highlightThreeSubtitle")</h4>
+                        <p>@Umbraco.Field("highlightThreeDescription")</p>
+                        <p><a href="@node3.Url">Learn more about our current research</a></p>
+                }
+            </div>
+            <div class="col-md-6 pull-right">
+                <img src="@Model.Content.GetCropUrl("highlightThreeImage", "highlight")" />
+            </div>
+        </div>
+    </div>
+</div>
+<div class="content-section">
+    @{ Html.RenderPartial("umbNewsOverviewWidget"); }
+</div>
+<div class="content-section">
+    <div class="container">
+        <div class="row">
+            @{ Html.RenderPartial("umbFeatures"); }
+        </div>
+    </div>
+</div>
     </div>
 </div>
 <!-- /Main -->

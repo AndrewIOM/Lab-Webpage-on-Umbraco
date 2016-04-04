@@ -1,55 +1,56 @@
 ﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage<ContentModels.Researchers>
-	@using ContentModels = Umbraco.Web.PublishedContentModels;
+@using ContentModels = Umbraco.Web.PublishedContentModels;
 @{
-	Layout = "umbLayout.cshtml";
-	var researchers = Model.Content.Children.Where(m => m.IsVisible()).OrderBy("surname");
-	var haveLeft = researchers.Where(m => m.GetPropertyValue<DateTime>("endDate") != new DateTime()).OrderBy("endDate");
+    Layout = "umbLayout.cshtml";
+    var researchers = Model.Content.Children.Where(m => m.IsVisible()).OrderBy("surname");
+    var haveLeft = researchers.Where(m => m.GetPropertyValue<DateTime>("endDate") != new DateTime()).OrderBy("endDate");
 }
-
 <div class="container">
-	@{ Html.RenderPartial("breadcrumb"); }
-<div class="page-header">
-	<h1>People <small>Our current research team</small></h1>
-	</div>
-	<div class="row">
-	@foreach (var person in researchers) {
-			if (person.GetPropertyValue<DateTime>("endDate") == new DateTime()) {
-				<div class="col-sm-6 col-md-3">
-					<div class="person-preview">
-						<a href="@person.Url">
-						<img src="@person.GetCropUrl("picture", "thumbnail")"/>
-						<div class="details">
-							<h4>@person.GetPropertyValue("title") @person.GetPropertyValue("firstName") @person.GetPropertyValue("middleInitials") @person.GetPropertyValue("surname")</h4>
-							<p>@person.GetPropertyValue("labPosition")</p>
-						</div>
-						</a>
-					</div>
-				</div>
-			}
-	}
+    @{ Html.RenderPartial("breadcrumb"); }
+    <div class="page-header">
+        <h1>People <small>Our current research team</small></h1>
+    </div>
+    <div class="row">
+        @foreach (var person in researchers)
+        {
+            if (person.GetPropertyValue<DateTime>("endDate") == new DateTime())
+            {
+                <div class="col-sm-6 col-md-3">
+                    <div class="person-preview">
+                        <a href="@person.Url">
+                            <img src="@person.GetCropUrl("picture", "thumbnail")" />
+                            <div class="details">
+                                <h4>@person.GetPropertyValue("title") @person.GetPropertyValue("firstName") @person.GetPropertyValue("middleInitials") @person.GetPropertyValue("surname")</h4>
+                                <p>@person.GetPropertyValue("labPosition")</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>}
+        }
+    </div>
+    <br />
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingTwo">
+            <h4 class="panel-title">
+                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    Former Members
+                </a>
+            </h4>
+        </div>
+        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+            <div class="panel-body">
+                @foreach (var person in haveLeft)
+                {
+                    var endDate = person.GetPropertyValue<DateTime>("endDate");
+                    <div class="col-md-6">
+                        <img class="framed" src="@person.GetCropUrl("picture", "thumbnail")" />
+                        <a href="@person.Url"><h4>@person.GetPropertyValue("title") @person.GetPropertyValue("firstName") @person.GetPropertyValue("middleInitials") @person.GetPropertyValue("surname")</h4></a>
+                        <h6><span class="glyphicon glyphicon-time"></span> Left @endDate.Month/@endDate.Year</h6>
+                        <p>@Umbraco.Truncate(person.GetPropertyValue<string>("researchProfile"), 200)</p>
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
 </div>
-	<br/>
-	  <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="headingTwo">
-      <h4 class="panel-title">
-        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-          Former Members
-        </a>
-      </h4>
-    </div>
-    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-      <div class="panel-body">
-			@foreach (var person in haveLeft) {
-		var endDate = person.GetPropertyValue<DateTime>("endDate");		
-				<div class="col-md-6">
-					<img class="framed" src="@person.GetCropUrl("picture", "thumbnail")"/>
-					<a href="@person.Url"><h4>@person.GetPropertyValue("title") @person.GetPropertyValue("firstName") @person.GetPropertyValue("middleInitials") @person.GetPropertyValue("surname")</h4></a>
-					<h6><span class="glyphicon glyphicon-time"></span> Left @endDate.Month/@endDate.Year</h6>
-					<p>@Umbraco.Truncate(person.GetPropertyValue<string>("researchProfile"), 200)</p>
-				</div>
-	}
-  
-		</div>
-    </div>
-  </div>
-	</div>

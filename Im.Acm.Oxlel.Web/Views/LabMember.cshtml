@@ -1,115 +1,144 @@
 ﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage<ContentModels.LabMember>
 @using ContentModels = Umbraco.Web.PublishedContentModels;
 @{
-	Layout = "umbLayout.cshtml";
-	
-	var projects = CurrentPage.Site().Descendants("researchProject").Where("Visible").OrderBy("Name").Take(5);
-	var tools = CurrentPage.Site().FirstChild("toolIndex").Children.Where("Visible");
-	var pageId = CurrentPage.Id.ToString();
-	
-	var endDate = CurrentPage.GetPropertyValue<DateTime>("endDate");
-	var startDate = CurrentPage.GetPropertyValue<DateTime>("startDate");
-	bool hasLeft = endDate != new DateTime();
-	if (endDate.Year == 1) { endDate = DateTime.Now;}
-	var month = (endDate.Month - startDate.Month) + 12 * (endDate.Year - startDate.Year);
-	var years = Math.Floor((double)month / (double)12);
-	var months = month % 12;
-}
+    Layout = "umbLayout.cshtml";
 
+    var projects = CurrentPage.Site().Descendants("researchProject").Where("Visible").OrderBy("Name").Take(5);
+    var tools = CurrentPage.Site().FirstChild("toolIndex").Children.Where("Visible");
+    var pageId = CurrentPage.Id.ToString();
+
+    var myTools = new List<Umbraco.Core.Models.IPublishedContent>();
+    foreach (var tool in tools)
+    {
+        var peopleValue = tool.GetPropertyValue<string>("people");
+        if (peopleValue.Contains(pageId))
+        {
+            myTools.Add(tool);
+        }
+    }
+
+    var endDate = CurrentPage.GetPropertyValue<DateTime>("endDate");
+    var startDate = CurrentPage.GetPropertyValue<DateTime>("startDate");
+    bool hasLeft = endDate != new DateTime();
+    if (endDate.Year == 1) { endDate = DateTime.Now; }
+    var month = (endDate.Month - startDate.Month) + (12 * (endDate.Year - startDate.Year));
+    var years = Math.Floor((double)month / (double)12);
+    var months = month % 12;
+}
 <div class="container">
-	@{ Html.RenderPartial("breadcrumb"); }
-	<div class="page-header">
-		<h1>@Umbraco.Field("title") @Umbraco.Field("firstName") @Umbraco.Field("middleInitials") @Umbraco.Field("surname")
-		@if (!hasLeft) {
-		<small>@Umbraco.Field("labPosition")</small>
-		}
-		</h1>
-		<h4><span class="glyphicon glyphicon-calendar"></span> At OxLEL for @if (years != 0) { Html.Raw(years + "years and"); } @months months. @if (!hasLeft) { Html.Raw("Left " + endDate.Month + "/" + endDate.Year);}</h4>
-	</div>
-		
-	<div class="row">
-			<div class="col-md-4 col-md-push-8">
-		<img src="@Model.Content.GetCropUrl("picture", "portrait")" alt="Portrait" style="width:100%"/>
-		<ul class="related-links">
-		@if (!hasLeft && !string.IsNullOrEmpty(Umbraco.Field("emailAddress").ToString())) {
-				<li><a href="mailto:@Umbraco.Field("emailAddress")"><i class="fa fa-envelope"></i> Email</a></li>
-		}
-		@if (!hasLeft && !string.IsNullOrEmpty(Umbraco.Field("twitter").ToString())) {
-				<li><a href="mailto:@Umbraco.Field("twitter")"><i class="fa fa-twitter"></i> Twitter</a></li>
-		}
-		@if (!hasLeft && !string.IsNullOrEmpty(Umbraco.Field("personalWebsite").ToString())) {
-				<li><a href="@Umbraco.Field("personalWebsite")" target="_blank"><i class="fa fa-link"></i> Personal Website</a></li>
-		}
-		@if (!hasLeft && !string.IsNullOrEmpty(Umbraco.Field("github").ToString())) {
-				<li><a href="https://github.com/@Umbraco.Field("github")" target="_blank"><i class="fa fa-github"></i> GitHub</a></li>
-		}
-		@if (!hasLeft && !string.IsNullOrEmpty(Umbraco.Field("oRCIDID").ToString())) {
-				<li><a href="http://orcid.org/@Umbraco.Field("oRCIDID")" target="_blank">Research on ORCID</a></li>
-		}
-		@if (hasLeft && !string.IsNullOrEmpty(Umbraco.Field("newWebsite").ToString())) {
-				<li><a href="@Umbraco.Field("newWebsite")" target="_blank">New Web Address</a></li>
-		}
-		</ul>
-		<hr/>
-			@if (!hasLeft){
-		<div class="panel panel-primary">
-			<div class="panel-heading">
-				<h3 class="panel-title">Tools and Resources</h3>
-			</div>
-			<div class="panel-body">
-			@foreach (var tool in tools) {
-									var peopleValue = tool.GetPropertyValue<string>("people");
-					if (peopleValue.Contains(pageId)) {
-					<p>
-						<a href="@tool.Url">@tool.GetPropertyValue("toolName")</a>
-					</p>
-				}
-			}
-			</div>
-			
-		</div>
-			}
-	</div>
-	<div class="col-md-8 col-md-pull-4">			
-		<h4>Academic Profile</h4>
-		<hr/>
-		@Umbraco.Field("researchProfile")
-		@if (!hasLeft) {
-			<br/>
-					<h4>Current Research</h4>
-		<hr/>
-		@Umbraco.Field("currentResearch")
-				@* Projects *@
-foreach (var item in projects) {
-	var peopleValue = item.GetPropertyValue<string>("people");
-	if (peopleValue.Contains(pageId)) {
-		var methods = item.GetPropertyValue("methods").Split(',');
-		var topics = item.GetPropertyValue("topics").Split(',');
-	
-		<div class="project-list-item">
-			<img src="@item.GetCropUrl("image", "thumbnail")" />
-			<div class="summary">
-				<h3><a href="@item.Url">@item.GetPropertyValue("projectTitle")</a></h3>
-				<p>@Umbraco.Truncate(item.GetPropertyValue("description"), 200)</p>
-												<div class="tags">
-					<span>
-					@foreach (var tag in methods) {
-						<span class="tag">@tag</span>
-					}</span>
-					<span>
-					@foreach (var tag in topics) {
-						<span class="tag">@tag</span>
-					}</span>
-				</div>
-			</div>
-		</div>
-}
-		<br/>
-		<h4>Selected Publications</h4>
-		<hr/>
-		@Umbraco.Field("publications")
-
-}
-		}
-	</div>
-</div>
+    @{ Html.RenderPartial("breadcrumb"); }
+    <div class="page-header">
+        <h1>
+            @Umbraco.Field("title") @Umbraco.Field("firstName") @Umbraco.Field("middleInitials") @Umbraco.Field("surname")
+            @if (!hasLeft)
+            {
+                <small>@Umbraco.Field("labPosition")</small>
+            }
+        </h1>
+    </div>
+    <div class="row">
+        <div class="col-md-4 col-md-push-8">
+            <img src="@Model.Content.GetCropUrl("picture", "portrait")" alt="Portrait" style="width:100%" />
+            <ul class="related-links">
+                @if (!hasLeft && !string.IsNullOrEmpty(Umbraco.Field("emailAddress").ToString()))
+                {
+                    <li><a href="mailto:@Umbraco.Field("emailAddress")"><i class="fa fa-envelope"></i> Email</a></li>
+                }
+                @if (!hasLeft && !string.IsNullOrEmpty(Umbraco.Field("twitter").ToString()))
+                {
+                    <li><a href="mailto:@Umbraco.Field("twitter")"><i class="fa fa-twitter"></i> Twitter</a></li>
+                }
+                @if (!hasLeft && !string.IsNullOrEmpty(Umbraco.Field("personalWebsite").ToString()))
+                {
+                    <li><a href="@Umbraco.Field("personalWebsite")" target="_blank"><i class="fa fa-link"></i> Personal Website</a></li>
+                }
+                @if (!hasLeft && !string.IsNullOrEmpty(Umbraco.Field("github").ToString()))
+                {
+                    <li><a href="https://github.com/@Umbraco.Field("github")" target="_blank"><i class="fa fa-github"></i> GitHub</a></li>
+                }
+                @if (!hasLeft && !string.IsNullOrEmpty(Umbraco.Field("oRCIDID").ToString()))
+                {
+                    <li><a href="http://orcid.org/@Umbraco.Field("oRCIDID")" target="_blank">Research on ORCID</a></li>
+                }
+                @if (hasLeft && !string.IsNullOrEmpty(Umbraco.Field("newWebsite").ToString()))
+                {
+                    <li><a href="@Umbraco.Field("newWebsite")" target="_blank">New Web Address</a></li>
+                }
+            </ul>
+            <hr />
+            <p>
+                <span class="glyphicon glyphicon-calendar"></span>
+                <span>With OxLEL for</span>
+                @if (years == 1)
+            {
+                    <span>@years year</span>
+                }
+                else if (years > 1)
+                {
+                    <span>@years years</span>
+                }
+                @if (years > 0 && months > 0)
+            {
+                    <span> and </span>
+                }
+                @if (months == 1)
+            {
+                    <span>@months month.</span>
+                }
+                else if (months > 1)
+                {
+                    <span>@months months.</span>
+                }
+                else
+                {
+                    <span>.</span>
+                }
+                @if (hasLeft)
+            {
+                    <span> Left @endDate.Month/@endDate.Year</span>
+                }
+            </p>
+            <hr />
+            @if (!hasLeft && myTools.Count > 0)
+            {
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Tools and Resources</h3>
+                    </div>
+                    <div class="panel-body">
+                        @foreach (var tool in myTools)
+                        {
+                            <p>
+                                <a href="@tool.Url">@tool.GetPropertyValue("toolName")</a>
+                            </p>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="col-md-8 col-md-pull-4">
+            <h4>Academic Profile</h4>
+            <hr />
+            @Umbraco.Field("researchProfile")
+            @if (!hasLeft)
+            {
+                <br />
+                <h4>Current Research</h4>
+                <hr />
+                    @Umbraco.Field("currentResearch")
+                    @* Projects *@
+            foreach (IPublishedContent item in projects)
+            {
+                var peopleValue = item.GetPropertyValue<string>("people");
+                if (peopleValue.Contains(pageId))
+                {
+                    Html.RenderPartial("projectPreview", item);
+                }
+            }
+            <br />
+            <h4>Selected Publications</h4>
+                    <hr />
+                    @Umbraco.Field("publications")
+            }
+        </div>
+    </div>

@@ -4,28 +4,25 @@
     var newsOverview = homePage.umbNewsOverviews.First();
     var newsItems = newsOverview.umbNewsItems.OrderBy("publishDate desc, createDate desc").Take(5);
 }
-
 <section class="side-block">
-	
-<h3>Latest News</h3>
-                        @foreach (var item in newsItems)
-                        {
-                            var title = string.IsNullOrWhiteSpace(item.Title) 
-                                ? item.Name 
-                                : item.Title;
-                            var dateTime = item.PublishDate == default(DateTime) 
-                                ? item.CreateDate 
-                                : item.PublishDate;
-							var imageUrl = item.GetCropUrl("image", "thumbnail");
-                            <section class="news-post">
-								<span class="timestamp"><span class="glyphicon glyphicon-time"></span> @dateTime.ToString("f")</span>
-                                <h4><a href="@item.Url">@title</a><small class="byline">@item.SubHeader</small></h4>
 
-									@if (!string.IsNullOrEmpty(imageUrl)) {
-										<a href="@item.Url"><img class="framed" src="@imageUrl" /></a>
-									}
-
-                                @Umbraco.Truncate(item.BodyText, 150)
-                            </section>
-                        }
-	</section>
+    <h3>Latest News</h3>
+    @foreach (var item in newsItems)
+    {
+        var title = string.IsNullOrWhiteSpace(item.Title)
+            ? item.Name
+            : item.Title;
+        var dateTime = item.PublishDate == default(DateTime)
+            ? item.CreateDate
+            : item.PublishDate;
+        var imageUrl = item.GetCropUrl("image", "thumbnail");
+        <section class="news-post">
+            <span class="timestamp"><span class="glyphicon glyphicon-time"></span> @dateTime.ToString("f")</span>
+            <h4><a href="@item.Url">@title</a><small class="byline">@item.SubHeader</small></h4>
+            @if (!string.IsNullOrEmpty(imageUrl))
+            {
+                <a href="@item.Url"><img class="framed" src="@imageUrl" /></a>}
+            <p>@library.StripHtml(Umbraco.Truncate(item.BodyText, 150, false).ToString())...</p>
+        </section>
+    }
+</section>

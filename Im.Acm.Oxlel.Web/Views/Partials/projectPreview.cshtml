@@ -1,0 +1,28 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<IPublishedContent>
+
+@{
+    var methods = Model.GetPropertyValue<string>("methods").Split(',');
+    var topics = Model.GetPropertyValue<string>("topics").Split(',');
+    string desc = Umbraco.Truncate(Model.GetPropertyValue<string>("description"), 200, false).ToString();
+}
+<div class="project-list-item">
+    <img src="@Model.GetCropUrl("image", "thumbnail")" />
+    <div class="summary">
+        <h3><a href="@Model.Url">@Model.GetPropertyValue("projectTitle")</a></h3>
+        <p>@library.StripHtml(desc)...</p>
+        <div class="tags">
+            <span>
+                @foreach (var tag in methods)
+                {
+                    <span class="tag">@tag</span>
+                }
+            </span>
+            <span>
+                @foreach (var tag in topics)
+                {
+                    <span class="tag">@tag</span>
+                }
+            </span>
+        </div>
+    </div>
+</div>
