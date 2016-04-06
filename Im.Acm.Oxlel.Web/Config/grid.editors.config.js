@@ -6,10 +6,28 @@
 	    "icon": "icon-article"
 	},
 	{
-	    "name": "Image",
+	    "name": "Square Image",
 	    "alias": "media",
 	    "view": "media",
-	    "icon": "icon-picture"
+	    "icon": "icon-picture",
+	    "config": {
+	        "size": {
+	            "height": 400,
+	            "width": 400
+	        }
+	    }
+	},
+	{
+	    "name": "Wide Image",
+	    "alias": "mediawide",
+	    "view": "media",
+	    "icon": "icon-picture",
+	    "config": {
+	        "size": {
+	            "height": 300,
+	            "width": 450
+	        }
+	    }
 	},
 	{
 	    "name": "Macro",
@@ -31,6 +49,16 @@
         "config": {
             "style": "font-size: 36px; line-height: 45px; font-weight: bold",
             "markup": "<h1>#value#</h1>"
+        }
+    },
+    {
+        "name": "Subheader",
+        "alias": "subheader",
+        "view": "textstring",
+        "icon": "icon-coin",
+        "config": {
+            "style": "",
+            "markup": "<h3>#value#</h3>"
         }
     },
 	{

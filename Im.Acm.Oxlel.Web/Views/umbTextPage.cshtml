@@ -16,9 +16,12 @@
             {
                 <span class="image image-full"><img src="@CurrentPage.Image" alt="" /></span>
             }
-            @CurrentPage.GetGridHtml("bodyText")
         </div>
     </div>
-    @{ Html.RenderPartial("umbFeatures"); }
+</div>
 
+@CurrentPage.GetGridHtml("bodyText")
+
+<div class="container">
+    @{ Html.RenderPartial("umbFeatures"); }
 </div>
