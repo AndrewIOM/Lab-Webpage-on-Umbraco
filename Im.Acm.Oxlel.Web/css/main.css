@@ -408,6 +408,7 @@ footer {
     padding: 0.4em 1em;
     font-size: 0.9em;
     line-height: 3em;
+    white-space:nowrap;
 }
 
     .tag.Resource-Stewardship-Technologies {

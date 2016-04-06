@@ -10,7 +10,9 @@
     @* Title *@
     @{ Html.RenderPartial("breadcrumb"); }
     <div class="page-header">
-        <h1>Our Research <small>Active Research Projects</small></h1>
+        <h1>
+            Our Research Projects<small></small>
+        </h1>
     </div>
     <div class="row">
         <div class="col-md-3">
@@ -25,12 +27,35 @@
             </div>
         </div>
         <div class="col-md-9">
-            @* Projects *@
-            @foreach (IPublishedContent item in selection)
-            {
-                Html.RenderPartial("projectPreview", item);
-            }
+            <div>
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#active" aria-controls="active" role="tab" data-toggle="tab">Active</a></li>
+                    <li role="presentation"><a href="#complete" aria-controls="complete" role="tab" data-toggle="tab">Complete</a></li>
+                </ul>
+                <br />
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane fade in active" id="active">
+                        @foreach (IPublishedContent item in selection)
+                        {
+                            var endDate = item.GetPropertyValue<DateTime>("actualEndDate");
+                            if (endDate == new DateTime())
+                            {
+                                Html.RenderPartial("projectPreview", item);
+                            }
+                        }
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="complete">
+                        @foreach (IPublishedContent item in selection)
+                        {
+                            var endDate = item.GetPropertyValue<DateTime>("actualEndDate");
+                            if (endDate != new DateTime())
+                            {
+                                Html.RenderPartial("projectPreview", item);
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-	</div>

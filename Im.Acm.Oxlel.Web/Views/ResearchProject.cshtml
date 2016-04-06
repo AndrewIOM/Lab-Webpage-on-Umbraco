@@ -6,7 +6,8 @@
     var topics = CurrentPage.GetPropertyValue("topics").Split(',');
 
     var startDate = CurrentPage.GetPropertyValue<DateTime>("startDate");
-    var endDate = CurrentPage.GetPropertyValue<DateTime>("endDate");
+    var predictedEndDate = CurrentPage.GetPropertyValue<DateTime>("endDate");
+    var endDate = CurrentPage.GetPropertyValue<DateTime>("actualEndDate");
     bool completed = true;
     if (endDate.Year == 1)
     {
@@ -50,7 +51,7 @@
                     }
                     else
                     {
-                        <span>This project has been running for </span>
+                        <span>This project was started @startDate.ToString("MMMM yyyy") and has been active for </span>
                     }
                     @if (years == 1)
             {
@@ -66,23 +67,20 @@
                     }
                     @if (months == 1)
             {
-                        <span>@months month.</span>
+                        <span>@months month</span>
                     }
                     else if (months > 1)
                     {
-                        <span>@months months.</span>
+                        <span>@months months</span>
                     }
-                    else
+                    @if (completed)
                     {
-                        <span>.</span>
+                        <span> from @startDate.ToString("MMMM yyyy") to @endDate.ToString("MMMM yyyy"). </span>
                     }
-                    <p>
-                        <span>It was started @startDate.ToString("D"). </span>
-                        @if (completed)
-                        {
-                            <span>It was completed @endDate.ToString("D").</span>
-                        }
-                    </p>
+                    @if (!completed && predictedEndDate != new DateTime())
+                    {
+                        <span> with an expected end date of @predictedEndDate.ToString("MMMM yyyy").</span>
+                    }
                     <hr />
                     <h6>People</h6>
                     @{

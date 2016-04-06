@@ -344,6 +344,7 @@
     <Content Include="Content\Images\topbanner.jpg" />
     <Content Include="Content\Images\topbannerright.jpg" />
     <Content Include="css\main.css" />
+    <Content Include="css\tinymce.css" />
     <Content Include="default.aspx" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -355,8 +356,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Content\bootstrap.min.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
     <None Include="Properties\PublishProfiles\oxlel - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -383,7 +382,6 @@
     <Content Include="Config\uSyncCore.config" />
     <Content Include="Config\uSyncBackOffice.Config" />
     <Content Include="App_Plugins\uSync\package.manifest" />
-    <Content Include="Scripts\jquery-1.9.1.min.map" />
     <Content Include="uSync\data\DataType\approved-color\ApprovedColor.config" />
     <Content Include="uSync\data\DataType\checkbox-list\CheckboxList.config" />
     <Content Include="uSync\data\DataType\content-picker\ContentPicker.config" />

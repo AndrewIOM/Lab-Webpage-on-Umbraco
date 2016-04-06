@@ -4,11 +4,23 @@
     var methods = Model.GetPropertyValue<string>("methods").Split(',');
     var topics = Model.GetPropertyValue<string>("topics").Split(',');
     string desc = Umbraco.Truncate(Model.GetPropertyValue<string>("description"), 200, false).ToString();
+
+    var startDate = Model.GetPropertyValue<DateTime>("startDate");
+    var endDate = Model.GetPropertyValue<DateTime>("actualEndDate");
+    bool completed = true;
+    if (endDate.Year == 1)
+    {
+        completed = false;
+    };
 }
 <div class="project-list-item">
     <img src="@Model.GetCropUrl("image", "thumbnail")" />
     <div class="summary">
         <h3><a href="@Model.Url">@Model.GetPropertyValue("projectTitle")</a></h3>
+        @if (completed)
+        {
+            <h6>@startDate.ToString("MMMM yyyy") to @endDate.ToString("MMMM yyyy").</h6>
+        }
         <p>@library.StripHtml(desc)...</p>
         <div class="tags">
             <span>
